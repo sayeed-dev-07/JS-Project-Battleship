@@ -3,29 +3,25 @@
 export class Ship {
     constructor(length) {
         this.length = length;
-        this.hitsNum = 0;
-        this.isSunkBol = false;
+        this.hit = 0;
     }
     hits(){
-        this.isSunk();
-        if (!this.isSunkBol) {
-            this.hitsNum ++;
-        }else{
-            return ;
+        if (!this.isSunk()) {
+            this.hit ++;
         }
-        
     }
 
     isSunk(){
-        if (this.length === this.hitsNum) {
-            this.isSunkBol = true;
-        }
+        return this.hit >= this.length;
     }
 }
 
 export class GameBoard{
-    
+    constructor(){
+        this.board = new Array(100).fill(null) ;
+        this.ships = [];
+    }
     placeShip(){
-
+        
     }
 }

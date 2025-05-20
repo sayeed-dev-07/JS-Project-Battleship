@@ -2,28 +2,30 @@
 /* eslint-disable quotes */
 import { Ship , GameBoard} from "./app.js";
 
-let battleShip = new Ship(5);
-
-describe('Ship Test', () => {
-  
-  test('should include 2', () => {
-    expect(battleShip.length).toBe(5);
+describe('Ship class', () => {
+  test('initial ship is not sunk', () => {
+    const ship = new Ship(3);
+    expect(ship.isSunk()).toBe(false);
   });
 
-  test('should return hits 1', () => {
-    battleShip.hits();
-    expect(battleShip.hitsNum).toBe(1);
+  test('ship records hits correctly', () => {
+    const ship = new Ship(2);
+    ship.hits();
+    expect(ship.isSunk()).toBe(false);
+    ship.hits();
+    expect(ship.isSunk()).toBe(true);
   });
-  test('should return hits 2', () => {
-    battleShip.hits();
-    expect(battleShip.hitsNum).toBe(2);
+
+  test('ship cannot be over-hit', () => {
+    const ship = new Ship(1);
+    ship.hits(); // hitss = 1
+    ship.hits(); // should do nothing
+    ship.hits(); // still nothing
+    expect(ship.isSunk()).toBe(true);
   });
-  test('should return hits 3', () => {
-    battleShip.hits();
-    expect(battleShip.hitsNum).toBe(3);
-  });
-  test('should return true', () => {
-    expect(battleShip.isSunkBol).toBe(false);
+
+  test('ship with length 0 is instantly sunk (edge case)', () => {
+    const ship = new Ship(0);
+    expect(ship.isSunk()).toBe(true);
   });
 });
-
