@@ -85,27 +85,11 @@ export class GameBoard {
     }
 }
 
-let test = new GameBoard();
-
-test.placeShip('rocket', { x: 2, y: 1 }, 3, 'hrz');
-test.placeShip('oyo', { x: 2, y: 2 }, 3, 'hrz');
-test.receiveAttack({ x: 3, y: 1 });
-test.receiveAttack({ x: 2, y: 1 });
-test.receiveAttack({ x: 4, y: 1 });
-test.receiveAttack({ x: 5, y: 1 });
-test.receiveAttack({ x: 5, y: 3 });
-test.receiveAttack({ x: 3, y: 2 });
-test.receiveAttack({ x: 4, y: 2 });
-test.receiveAttack({ x: 6, y: 2 });
-
-let ship1 = test.ships[0];
-let ship2 = test.ships[1];
-
-console.log(ship2.ship.hit);
-console.log(ship2.ship.isSunk());
-
-console.log(ship1.ship.hit);
-console.log(ship1.ship.isSunk());
-console.log(test.missShot);
-// console.log(test.board);
-console.log(test.allShipSank());
+export class Player{
+    realPlayer(name){
+        const board = new GameBoard();
+    }
+    computer(){
+        const board = new GameBoard();
+    }
+}
