@@ -85,11 +85,19 @@ export class GameBoard {
     }
 }
 
-export class Player{
-    realPlayer(name){
-        const board = new GameBoard();
+export class realPlayer{
+    constructor(name, start, length, direction){
+        this.name = name;
+        this.start = start;
+        this.length = length;
+        this.direction = direction;
+        this.board = new GameBoard();
     }
-    computer(){
-        const board = new GameBoard();
+    placeShip(){
+        let board = this.board;
+        board.placeShip(this.name, this.start, this.length, this.direction);
+    }
+    receiveAttack(obj){
+        this.board.receiveAttack(obj);
     }
 }
