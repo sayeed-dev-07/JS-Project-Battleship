@@ -1,24 +1,25 @@
 /* eslint-disable indent */
 
-export class Ship {
+class Ship {
     constructor(length, name) {
         this.name = name;
         this.length = length;
         this.hit = 0;
-
     }
     hits() {
         if (!this.isSunk()) {
             this.hit++;
         }
     }
-
+    getHits(){
+        return this.hit;
+    }
     isSunk() {
         return this.hit >= this.length;
     }
 }
 
-export class GameBoard {
+class GameBoard {
     constructor() {
         this.board = new Array(100).fill(null);
         this.ships = [];
@@ -49,9 +50,8 @@ export class GameBoard {
             }
 
             position.push(index);
-
         }
-        position.forEach(index => {
+        position.forEach((index) => {
             this.board[index] = ship;
         });
         this.ships.push({ ship, position });
@@ -68,10 +68,23 @@ export class GameBoard {
             this.missShot.push(index);
             this.board[index] = 'miss';
             return false;
-        }else{
+        } else {
             let ship = this.board[index];
-            ship.hit();
+            ship.hits();
         }
-
     }
 }
+
+let test = new GameBoard();
+
+test.placeShip('rocket', { x: 2, y: 1 }, 3, 'hrz');
+test.receiveAttack({ x: 3, y: 1 });
+test.receiveAttack({ x: 2, y: 1 });
+test.receiveAttack({ x: 4, y: 1 });
+test.receiveAttack({ x: 5, y: 1 });
+
+let ship = test.ships[0];
+console.log(ship.ship.hit);
+console.log(ship.ship.isSunk());
+console.log(test.missShot);
+console.log(test.board);

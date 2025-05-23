@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-multiple-empty-lines */
+ 
 /* eslint-disable no-undef */
 /* eslint-disable quotes */
 import { Ship, GameBoard } from "./app.js";
