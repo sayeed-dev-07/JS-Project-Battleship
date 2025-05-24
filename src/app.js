@@ -11,7 +11,7 @@ export class Ship {
             this.hit++;
         }
     }
-    getHits(){
+    getHits() {
         return this.hit;
     }
     isSunk() {
@@ -73,9 +73,9 @@ export class GameBoard {
             ship.hits();
         }
     }
-    allShipSank(){
+    allShipSank() {
         let isSunkAll = true;
-        this.ships.forEach(elem => {
+        this.ships.forEach((elem) => {
             if (!elem.ship.isSunk()) {
                 isSunkAll = false;
                 return isSunkAll;
@@ -84,20 +84,75 @@ export class GameBoard {
         return isSunkAll;
     }
 }
-
-export class realPlayer{
-    constructor(name, start, length, direction){
+export class Player {
+    constructor(name) {
         this.name = name;
-        this.start = start;
-        this.length = length;
-        this.direction = direction;
         this.board = new GameBoard();
+        this.attacksMade = new Set(); // to prevent duplicate attacks
     }
-    placeShip(){
-        let board = this.board;
-        board.placeShip(this.name, this.start, this.length, this.direction);
+
+    receiveAttack(coord) {
+        return this.board.receiveAttack(coord);
     }
-    receiveAttack(obj){
-        this.board.receiveAttack(obj);
+
+    allShipsSunk() {
+        return this.board.allShipSank();
+    }
+
+    getBoard() {
+        return this.board;
+    }
+}
+
+export class RealPlayer extends Player {
+    constructor(name) {
+        super(name);
+    }
+
+    placeShip(name, start, length, direction) {
+        return this.board.placeShip(name, start, length, direction);
+    }
+
+    attackEnemy(enemyPlayer, coord) {
+        return enemyPlayer.receiveAttack(coord);
+    }
+}
+export class Computer {
+    constructor() {
+        this.board = new GameBoard();
+        this.names = ['a', 'b', 'c', 'd', 'e'];
+        this.shipLengths = [5, 4, 3, 2, 1];
+    }
+
+    placeShip() {
+        const board = this.board;
+
+        for (let i = 0; i < this.shipLengths.length; i++) {
+            const name = this.names[i];
+            const length = this.shipLengths[i];
+            let placed = false;
+
+            while (!placed) {
+                const direction = this.#randomDirection();
+                const max = 10 - length;
+                const start = {
+                    x: direction === 'hrz' ? this.#randomNum(max) : this.#randomNum(9),
+                    y: direction === 'vrtx' ? this.#randomNum(max) : this.#randomNum(9),
+                };
+
+                const result = board.placeShip(name, start, length, direction);
+                if (result === true) {
+                    placed = true;
+                }
+            }
+        }
+    }
+
+    #randomNum(max = 10) {
+        return Math.floor(Math.random() * max);
+    }
+
+    #randomDirection() {
+        return Math.random() < 0.5 ? 'hrz' : 'vrtx';
     }
 }

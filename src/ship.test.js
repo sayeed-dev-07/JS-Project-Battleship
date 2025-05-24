@@ -2,7 +2,7 @@
 
 /* eslint-disable no-undef */
 /* eslint-disable quotes */
-import { Ship, GameBoard } from "./app.js";
+import { Ship, GameBoard, Computer } from "./app.js";
 
 describe('Ship class', () => {
   test('initial ship is not sunk', () => {
@@ -154,6 +154,18 @@ describe('allShipSank Method Check : ', () => {
     board.receiveAttack({ x: 7, y: 7 });
 
     expect(board.allShipSank()).toBe(false);
+
+  });
+
+});
+
+describe('random method Check : ', () => {
+
+  test('should return hrz', () => {
+    let computer = new Computer();
+    computer.placeShip();
+    let ships = computer.board.ships;
+    expect(ships).toBe('vrtx');
 
   });
 
