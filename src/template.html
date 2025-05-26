@@ -1,16 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battle Ship Game</title>
 </head>
+
 <body>
     <div id="body-shadow"></div>
     <header>
-        <p class="attack-cmd">Place Your Ship Captain <span id="captain-name">Sayeed</span> . . .</p>
+        <p class="attack-cmd">Place Your Ship Captain <span class="captain-name highlight">Sayeed</span> . . .</p>
     </header>
-    <main></main>
+    <main>
+        <div id="box-container">
+            <div class="box-1 box">
+                <div class="axis"> ⬅ X - axis ➡ </div>
+                <div class="main-grid grid-1"></div>
+                <div class="player-identity"><span class="captain-name highlight">Sayeed</span>'s Ocean</div>
+            </div>
+            <div class="box-2 box">
+                <div class="axis"> ⬅ X - axis ➡ </div>
+                <div class="main-grid grid-2"></div>
+                <div class="player-identity"><span class="highlight">Computer</span>'s Ocean</div>
+            </div>
+        </div>
+    </main>
+    <dialog>
+        <p id="dialog-header">Result</p>
+        <p id="dialog-p">Winner is : <span>Computer</span></p>
+        <button id="dialog-button">Restart</button>
+    </dialog>
+    
     <footer>@sayeed-dev-07</footer>
 </body>
+
 </html>

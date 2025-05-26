@@ -35,17 +35,90 @@ body{
     padding: 0.8rem 1.5rem;
     background-color: rgba(0, 0, 0, 0.7);
 }
-#captain-name{
+.highlight{
 
     font-weight: 600;
-    color: lightblue;
+    color: rgb(6, 182, 241);
 }
+
 
 main{
     height: 80vh;
     width: 100%;
     /* background-color: white; */
     margin: 1rem 0;
+}
+
+.axis{
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+.main-grid{
+    height: 550px;
+    width: 550px;
+    
+    border-radius: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 2px;
+}
+.item{
+    border: 1px solid #534e4e;
+    background-color: rgba(0, 0, 0, 0.798);
+    cursor: pointer;
+}
+.item:hover{
+    background-color: rgba(240, 248, 255, 0.754);
+}
+.player-identity, .axis{
+    margin: 0.5rem 0;
+    width: 550px;
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.838);
+    text-align: center;
+    cursor: pointer;
+    font-size: large;
+    font-weight: 500;
+    
+}
+.player-identity{
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+dialog{
+    height: 300px;
+    width: 400px;
+    top: calc(50% - 150px);
+    left: calc(50% - 200px);
+    border: none;
+    border-radius: 1rem;
+}
+#box-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+dialog::backdrop{
+    background: rgb(0 0 0 / 0.6);
+}
+dialog{
+    text-align: center;
+    padding: 1rem;
+}
+#dialog-header{
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+#dialog-p{
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+#dialog-button{
+    padding: 0.5rem 5rem;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    cursor: pointer;
 }
 footer{
     background-color: rgb(0, 0, 0);
