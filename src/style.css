@@ -1,11 +1,57 @@
-p{
-    color: crimson;
-    font-size: 4rem;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 body{
-    background-color: skyblue;
+    background-image: url('/public/photos/ship.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    position: relative;
+    padding: 1rem 4rem;
+    z-index: 2;
 }
-h1{
-    color: yellow;
-    font-style: italic;
+
+#body-shadow{
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: 0.4;
+    z-index: -1;
+}
+.attack-cmd{
+    font-size: 2rem;
+    color: lightyellow;
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+#captain-name{
+
+    font-weight: 600;
+    color: lightblue;
+}
+
+main{
+    height: 80vh;
+    width: 100%;
+    /* background-color: white; */
+    margin: 1rem 0;
+}
+footer{
+    background-color: rgb(0, 0, 0);
+    color: white;
+    width: 100%;
+    padding: 0.5rem 4rem;
+    text-align: center;
+    cursor: pointer;
 }
