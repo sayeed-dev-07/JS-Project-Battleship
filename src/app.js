@@ -85,52 +85,34 @@ export class GameBoard {
     }
 }
 export class Player {
-    constructor(name) {
-        this.name = name;
-        this.board = new GameBoard();
-        this.attacksMade = new Set(); // to prevent duplicate attacks
-    }
-
-    receiveAttack(coord) {
-        return this.board.receiveAttack(coord);
-    }
-
-    allShipsSunk() {
-        return this.board.allShipSank();
-    }
-
-    getBoard() {
-        return this.board;
+    constructor() {
+        this.names = ['Carrier', 'Battleship', 'Cruiser', 'Submarine', 'Destroyer'];
     }
 }
 
 export class RealPlayer extends Player {
-    constructor(name) {
-        super(name);
+    constructor() {
+        super();
+        this.board = new GameBoard();
     }
 
     placeShip(name, start, length, direction) {
         return this.board.placeShip(name, start, length, direction);
     }
-
-    attackEnemy(enemyPlayer, coord) {
-        return enemyPlayer.receiveAttack(coord);
-    }
 }
-export class Computer {
+export class Computer extends Player {
     constructor() {
+        super();
         this.board = new GameBoard();
-        this.names = ['a', 'b', 'c', 'd', 'e'];
-        this.shipLengths = [5, 4, 3, 2, 1];
     }
-
     placeShip() {
         const board = this.board;
-
-        for (let i = 0; i < this.shipLengths.length; i++) {
+        let j = 5;
+        for (let i = 0; i < 5; i++) {
             const name = this.names[i];
-            const length = this.shipLengths[i];
+            const length = j;
             let placed = false;
+            j--;
 
             while (!placed) {
                 const direction = this.#randomDirection();
@@ -156,3 +138,4 @@ export class Computer {
         return Math.random() < 0.5 ? 'hrz' : 'vrtx';
     }
 }
+

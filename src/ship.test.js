@@ -2,7 +2,7 @@
 
 /* eslint-disable no-undef */
 /* eslint-disable quotes */
-import { Ship, GameBoard, Computer } from "./app.js";
+import { Ship, GameBoard, Computer, RealPlayer } from "./app.js";
 
 describe('Ship class', () => {
   test('initial ship is not sunk', () => {
@@ -159,13 +159,30 @@ describe('allShipSank Method Check : ', () => {
 
 });
 
-describe('random method Check : ', () => {
+describe('placeship check ', () => {
 
-  test('should return hrz', () => {
+  test('should return 5 ships', () => {
     let computer = new Computer();
     computer.placeShip();
     let ships = computer.board.ships;
-    expect(ships).toBe('vrtx');
+    expect(ships.length).toBe(5);
+
+  });
+
+});
+
+describe('placeship check ', () => {
+
+  test('missshot should return 2', () => {
+    let computer = new Computer();
+    let person = new RealPlayer();
+    person.placeShip('rocket2', { x: 5, y: 2 }, 3, 'hrz');
+    person.placeShip('rocket', { x: 1, y: 2 }, 3, 'hrz');
+    computer.placeShip();
+    person.board.receiveAttack({ x: 1, y: 2 });
+    person.board.receiveAttack({ x: 2, y: 2 });
+    computer.board.receiveAttack({ x: 5, y: 5 });
+    expect(person.board.missShot.length).toBe(0);
 
   });
 
