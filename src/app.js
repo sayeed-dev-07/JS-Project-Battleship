@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable indent */
 
 export class Ship {
@@ -104,6 +105,7 @@ export class Computer extends Player {
     constructor() {
         super();
         this.board = new GameBoard();
+        this.attackedIndex = [];
     }
     placeShip() {
         const board = this.board;
@@ -129,7 +131,19 @@ export class Computer extends Player {
             }
         }
     }
+    attackHuman(board) {
 
+        let exists = true;
+        while (exists) {
+            let randomIndex = Math.ceil(Math.random() * 100);
+            if (!this.attackedIndex.includes(randomIndex)) {
+                this.attackedIndex.push(randomIndex);
+                let obj = this.#randomCordGen(randomIndex);
+                board.receiveAttack(obj);
+                exists = false;
+            }
+        }
+    }
     #randomNum(max = 10) {
         return Math.floor(Math.random() * max);
     }
@@ -137,5 +151,18 @@ export class Computer extends Player {
     #randomDirection() {
         return Math.random() < 0.5 ? 'hrz' : 'vrtx';
     }
+    #randomCordGen(index) {
+        let b = Math.floor(index / 10);
+        let a = index % 10;
+        return { x: a, y: b };
+    }
 }
 
+let computer = new Computer();
+let person = new RealPlayer();
+
+computer.placeShip();
+person.placeShip('rocket2', { x: 5, y: 2 }, 3, 'hrz');
+person.placeShip('rocket', { x: 1, y: 2 }, 3, 'hrz');
+
+computer.attackHuman(person.board.board);

@@ -51,6 +51,7 @@ main{
 
 .axis{
     border-radius: 0.5rem 0.5rem 0 0;
+    cursor: pointer;
 }
 .main-grid{
     height: 550px;
@@ -76,7 +77,7 @@ main{
     padding: 0.5rem;
     background-color: rgba(255, 255, 255, 0.838);
     text-align: center;
-    cursor: pointer;
+    
     font-size: large;
     font-weight: 500;
     

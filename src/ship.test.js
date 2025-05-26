@@ -187,3 +187,38 @@ describe('placeship check ', () => {
   });
 
 });
+
+describe('computer attack check ', () => {
+
+  test('length check - 1', () => {
+    let computer = new Computer();
+    let person = new RealPlayer();
+    person.placeShip('rocket2', { x: 5, y: 2 }, 3, 'hrz');
+    person.placeShip('rocket', { x: 1, y: 2 }, 3, 'hrz');
+    computer.placeShip();
+    person.board.receiveAttack({ x: 1, y: 2 });
+    person.board.receiveAttack({ x: 2, y: 2 });
+    computer.attackHuman();
+    expect(computer.attackedIndex.length).toBe(1);
+
+  });
+
+});
+
+describe('computer attack check ', () => {
+
+  test('length check - 2', () => {
+    let computer = new Computer();
+    let person = new RealPlayer();
+    person.placeShip('rocket2', { x: 5, y: 2 }, 3, 'hrz');
+    person.placeShip('rocket', { x: 1, y: 2 }, 3, 'hrz');
+    computer.placeShip();
+    person.board.receiveAttack({ x: 1, y: 2 });
+    person.board.receiveAttack({ x: 2, y: 2 });
+    computer.attackHuman();
+
+    expect(computer.attackedIndex).toBe([4]);
+
+  });
+
+});
