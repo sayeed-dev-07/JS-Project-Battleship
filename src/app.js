@@ -24,6 +24,7 @@ export class GameBoard {
         this.board = new Array(100).fill(null);
         this.ships = [];
         this.missShot = [];
+        this.hitShots = [];
     }
     placeShip(name, start, length, direction = 'hrz') {
         const position = [];
@@ -46,7 +47,7 @@ export class GameBoard {
             const index = y * 10 + x;
 
             if (this.board[index] !== null) {
-                return 'overlap';
+                return ;
             }
 
             position.push(index);
@@ -70,6 +71,7 @@ export class GameBoard {
             return false;
         } else {
             let ship = this.board[index];
+            this.hitShots.push(index);
             ship.hits();
         }
     }
@@ -83,6 +85,13 @@ export class GameBoard {
         });
         return isSunkAll;
     }
+    // anyShipSank(){
+    //     this.ships.forEach(ship => {
+    //         if (ship.isSunk()) {
+                
+    //         }
+    //     });
+    // }
 }
 export class Player {
     constructor() {
@@ -90,6 +99,8 @@ export class Player {
     }
     placeShip() {
         const board = this.board;
+        board.board = new Array(100).fill(null);
+        board.ships = [];
         let j = 5;
         for (let i = 0; i < 5; i++) {
             const name = this.names[i];
@@ -118,6 +129,11 @@ export class Player {
     randomNum(max = 10) {
         return Math.floor(Math.random() * max);
     };
+    randomCordGen(index) {
+        let b = Math.floor(index / 10);
+        let a = index % 10;
+        return { x: a, y: b };
+    }
 }
 
 export class RealPlayer extends Player {
@@ -126,8 +142,9 @@ export class RealPlayer extends Player {
         this.board = new GameBoard();
     }
 
-    attackComputer(computer, obj) {
+    attackComputer(computer, indx) {
         let board = computer.board;
+        let obj = this.randomCordGen(indx);
         if (!board.allShipSank()) {
             board.receiveAttack(obj);
         }
@@ -149,7 +166,7 @@ export class Computer extends Player {
                 let randomIndex = Math.ceil(Math.random() * 100);
                 if (!this.attackedIndex.includes(randomIndex)) {
                     this.attackedIndex.push(randomIndex);
-                    let obj = this.#randomCordGen(randomIndex);
+                    let obj = this.randomCordGen(randomIndex);
                     board.receiveAttack(obj);
                     exists = false;
                 }
@@ -157,9 +174,5 @@ export class Computer extends Player {
         }
     }
 
-    #randomCordGen(index) {
-        let b = Math.floor(index / 10);
-        let a = index % 10;
-        return { x: a, y: b };
-    }
+    
 }

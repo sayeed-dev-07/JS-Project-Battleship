@@ -84,13 +84,13 @@ main{
     grid-template-rows: repeat(10, 1fr);
     gap: 2px;
 }
-.item{
+.item-1, .item-2{
     border: 1px solid #534e4e;
     background-color: rgba(0, 0, 0, 0.798);
     cursor: pointer;
 }
-.item:hover{
-    background-color: rgba(240, 248, 255, 0.754);
+.item-2:hover{
+    background-color: white;
 }
 .player-identity, .axis{
     margin: 0.5rem 0;
@@ -149,4 +149,7 @@ footer{
     padding: 0.5rem 4rem;
     text-align: center;
     cursor: pointer;
+}
+.selected-cell{
+    background-color: rgba(240, 248, 255, 0.754);
 }
