@@ -1,4 +1,3 @@
-/* eslint-disable no-empty */
 /* eslint-disable indent */
 
 export class Ship {
@@ -89,30 +88,6 @@ export class Player {
     constructor() {
         this.names = ['Carrier', 'Battleship', 'Cruiser', 'Submarine', 'Destroyer'];
     }
-}
-
-export class RealPlayer extends Player {
-    constructor() {
-        super();
-        this.board = new GameBoard();
-    }
-
-    placeShip(name, start, length, direction) {
-        return this.board.placeShip(name, start, length, direction);
-    }
-    attackComputer(computer, obj) {
-        let board = computer.board;
-        if (!board.allShipSank()) {
-            board.receiveAttack(obj);
-        }
-    }
-}
-export class Computer extends Player {
-    constructor() {
-        super();
-        this.board = new GameBoard();
-        this.attackedIndex = [];
-    }
     placeShip() {
         const board = this.board;
         let j = 5;
@@ -123,11 +98,11 @@ export class Computer extends Player {
             j--;
 
             while (!placed) {
-                const direction = this.#randomDirection();
+                const direction = this.randomDirection();
                 const max = 10 - length;
                 const start = {
-                    x: direction === 'hrz' ? this.#randomNum(max) : this.#randomNum(9),
-                    y: direction === 'vrtx' ? this.#randomNum(max) : this.#randomNum(9),
+                    x: direction === 'hrz' ? this.randomNum(max) : this.randomNum(9),
+                    y: direction === 'vrtx' ? this.randomNum(max) : this.randomNum(9),
                 };
 
                 const result = board.placeShip(name, start, length, direction);
@@ -136,7 +111,36 @@ export class Computer extends Player {
                 }
             }
         }
+    };
+    randomDirection() {
+        return Math.random() < 0.5 ? 'hrz' : 'vrtx';
+    };
+    randomNum(max = 10) {
+        return Math.floor(Math.random() * max);
+    };
+}
+
+export class RealPlayer extends Player {
+    constructor() {
+        super();
+        this.board = new GameBoard();
     }
+
+    attackComputer(computer, obj) {
+        let board = computer.board;
+        if (!board.allShipSank()) {
+            board.receiveAttack(obj);
+        }
+    }
+    
+}
+export class Computer extends Player {
+    constructor() {
+        super();
+        this.board = new GameBoard();
+        this.attackedIndex = [];
+    }
+    
     attackHuman(person) {
         let board = person.board;
         let exists = true;
@@ -152,13 +156,7 @@ export class Computer extends Player {
             }
         }
     }
-    #randomNum(max = 10) {
-        return Math.floor(Math.random() * max);
-    }
 
-    #randomDirection() {
-        return Math.random() < 0.5 ? 'hrz' : 'vrtx';
-    }
     #randomCordGen(index) {
         let b = Math.floor(index / 10);
         let a = index % 10;

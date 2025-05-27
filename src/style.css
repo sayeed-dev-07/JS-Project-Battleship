@@ -53,6 +53,27 @@ main{
     border-radius: 0.5rem 0.5rem 0 0;
     cursor: pointer;
 }
+.button-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#random{
+    align-self: center;
+    padding: 0.5rem 2rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    border-color:skyblue ;
+    
+
+}
+#random:hover{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.707);
+    border-color: aqua;
+}
 .main-grid{
     height: 550px;
     width: 550px;
