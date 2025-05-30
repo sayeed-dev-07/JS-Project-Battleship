@@ -47,7 +47,7 @@ export class GameBoard {
             const index = y * 10 + x;
 
             if (this.board[index] !== null) {
-                return ;
+                return;
             }
 
             position.push(index);
@@ -73,6 +73,7 @@ export class GameBoard {
             let ship = this.board[index];
             this.hitShots.push(index);
             ship.hits();
+            return true;
         }
     }
     allShipSank() {
@@ -88,7 +89,7 @@ export class GameBoard {
     // anyShipSank(){
     //     this.ships.forEach(ship => {
     //         if (ship.isSunk()) {
-                
+
     //         }
     //     });
     // }
@@ -122,13 +123,13 @@ export class Player {
                 }
             }
         }
-    };
+    }
     randomDirection() {
         return Math.random() < 0.5 ? 'hrz' : 'vrtx';
-    };
+    }
     randomNum(max = 10) {
         return Math.floor(Math.random() * max);
-    };
+    }
     randomCordGen(index) {
         let b = Math.floor(index / 10);
         let a = index % 10;
@@ -140,16 +141,20 @@ export class RealPlayer extends Player {
     constructor() {
         super();
         this.board = new GameBoard();
+        this.attackedIndex = [];
     }
 
     attackComputer(computer, indx) {
         let board = computer.board;
         let obj = this.randomCordGen(indx);
+        if (this.attackedIndex.includes(indx)) {
+            return null; // Already attacked here
+        }
         if (!board.allShipSank()) {
-            board.receiveAttack(obj);
+            this.attackedIndex.push(indx);
+            return board.receiveAttack(obj);
         }
     }
-    
 }
 export class Computer extends Player {
     constructor() {
@@ -157,22 +162,26 @@ export class Computer extends Player {
         this.board = new GameBoard();
         this.attackedIndex = [];
     }
-    
+
     attackHuman(person) {
-        let board = person.board;
+        const board = person.board;
         let exists = true;
+        let result;
+
         if (!board.allShipSank()) {
             while (exists) {
-                let randomIndex = Math.ceil(Math.random() * 100);
+                let randomIndex = Math.floor(Math.random() * 100); // changed to 0–99
                 if (!this.attackedIndex.includes(randomIndex)) {
                     this.attackedIndex.push(randomIndex);
-                    let obj = this.randomCordGen(randomIndex);
-                    board.receiveAttack(obj);
+                    const obj = this.randomCordGen(randomIndex);
+
+                    result = board.receiveAttack(obj); // 🔁 return value (true/false)
                     exists = false;
                 }
             }
         }
+
+        return result; // ✅ Return the hit/miss result
     }
 
-    
 }
